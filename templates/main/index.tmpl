@@ -33,18 +33,24 @@
   </div>
 
   <!--
+    エラーメッセージの表示
+  -->
+  <p class="error-message">{{ .errors.Title }}</p>
+  <p class="error-message">{{ .errors.Description }}</p>
+
+  <!--
     入力フォーム
   -->
   <form method="post" action="/new">
     <div class="row my-3">
       <div class="input-field col s12">
-        <input id="input_text" type="text" data-length="30" name="title">
+        <input id="input_text" type="text" data-length="30" name="title" value={{.title}}>
         <label for="input_text">本日を一言で...</label>
       </div>
     </div>
     <div class="row my-3">
       <div class="input-field col s12">
-        <textarea id="textarea1" class="materialize-textarea" name="description"></textarea>
+        <textarea id="textarea1" class="materialize-textarea" name="description">{{.description}}</textarea>
         <label for="textarea1">本日の日記</label>
       </div>
     </div>
@@ -82,7 +88,7 @@
               <div class="black-text">
                 {{ .Description }}
               </div>
-              <div>
+              <div class="my-1" style="color: rgb(116, 116, 116);">
                 {{ .CreatedTime }}
               </div>
             </div>

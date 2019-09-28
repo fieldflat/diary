@@ -138,9 +138,20 @@ func main() {
 		point := c.PostForm("point")
 
 		errors := create(title, description, point, time.Now().Format("2006/1/2 15:04:05"), time.Now().Format("2006/1/2 15:04:05"))
-		c.Redirect(302, "/", gin.H{
-			"errors": errors,
-		}))
+		log.Print("errors : ", errors)
+		if len(errors) != 0 {
+			items := getAll()
+			c.HTML(200, "index.tmpl", gin.H{
+				"items":       items,
+				"errors":      errors,
+				"title":       title,
+				"description": description,
+				"point":       point,
+			})
+		} else {
+			log.Print("こっちあよ22！！！！！！")
+			c.Redirect(302, "/")
+		}
 	})
 
 	r.POST("/update/:id", func(c *gin.Context) {
